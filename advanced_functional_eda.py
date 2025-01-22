@@ -16,6 +16,15 @@ def check_df(dataframe, head=5):
     print(dataframe.isnull().sum())
     print("############### Quantiles  ###############")
     print(dataframe.describe([0, 0.85, 0.50, 0.95, 0.99, 1]).T)
+
+def ratio_column(dataframe, col_name, plot=False):
+    print(pd.DataFrame({col_name: dataframe[col_name].value_counts(),
+                        "Ratio": 100 * dataframe[col_name].value_counts() / len(dataframe)}))
+    print("##########################################")
+    if plot:
+        sns.countplot(x=dataframe[col_name], data=dataframe)
+        plt.show(block=True)
+
 def grab_col_names(dataframe, cat_th=10, car_th=20):
     """
     Veri setindeki, kategorik, numeric ve kategorik fakat kardinal değişkenlerin isimlerini verir
